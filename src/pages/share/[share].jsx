@@ -48,7 +48,7 @@ const Share = () => {
                                 {item.blog}
                             </p>
                             <p className="text-slate-900 text-lg mb-5 font-medium">
-                                Like count : {item.likes.length}
+                                Like count : {item.likes ? item.likes.length : 0}
                             </p>
                             <p className="text-slate-900 text-lg mb-5 font-medium">
                                 Author: {item.name}

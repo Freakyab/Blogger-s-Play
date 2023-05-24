@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const createBlog = ({ createBlog, setCreateBlog,id,name }) => {
+const createBlog = ({ createBlog, setCreateBlog,id,name,update,setUpdate }) => {
   const [form, setForm] = useState({ title: "", blog: "", imgUrl: "",by : id ,date : "",like : 0,name: name })
   const handleChange = async(e) => {
     e.preventDefault();
@@ -14,7 +14,10 @@ const createBlog = ({ createBlog, setCreateBlog,id,name }) => {
       body: JSON.stringify(form)
     })
     const data = await res.json()
-    setCreateBlog(!createBlog)
+    if(data.success){
+      setUpdate(!update)
+    }
+      setCreateBlog(!createBlog)
     setForm({ title: "", blog: "", imgUrl: "",by : id ,date : "",like : [],name: name })
   }
 

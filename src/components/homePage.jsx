@@ -137,6 +137,8 @@ const Home = ({ data }) => {
             setCreateBlog={setCreateBlog}
             id={id}
             name={data.name}
+            update={update}
+            setUpdate={setUpdate}
           />
         </>
       ) : (
