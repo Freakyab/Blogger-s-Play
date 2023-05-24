@@ -94,7 +94,7 @@ const Home = ({ data }) => {
                     blog.map((item, index) => (
                       <div
                         key={item}
-                        className="bg-white rounded-lg p-3 h-[500px] w-3/2 overflow-hidden shadow-xl"
+                        className="bg-white rounded-lg p-3 h-[500px] w-3/2 overflow-hidden shadow-xl hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                       >
                         <h1 className="text-2xl font-bold text-slate-900 mb-5  whitespace-nowrap overflow-hidden text-ellipsis">
                           {item.title}
