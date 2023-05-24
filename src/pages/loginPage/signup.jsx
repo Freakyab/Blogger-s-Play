@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import HomePage from "@/components/homePage"
 const signup = ({ button, showLogin }) => {
     const [form, setForm] = useState({ username: "", password: "", name: "" })
@@ -6,7 +6,6 @@ const signup = ({ button, showLogin }) => {
     const [dashboard, setDashboard] = useState(false)
     const handleSignup = (e) => {
         e.preventDefault();
-        console.log(e.target);
         fetch("http://localhost:5000/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -26,38 +25,38 @@ const signup = ({ button, showLogin }) => {
     }
     return (
         <>
-         {dashboard ? <HomePage data={userData} /> :
-            <div className="flex justify-center items-center h-screen bg-slate-900">
-                <div className="bg-white p-10 rounded-lg shadow-2xl">
-                    <span className='inline-flex'>
-                        <h1 className="text-4xl font-bold text-center"
+            {dashboard ? <HomePage data={userData} /> :
+                <div className="flex justify-center items-center h-screen bg-slate-900">
+                    <div className="bg-white p-10 rounded-lg shadow-2xl">
+                        <span className='inline-flex'>
+                            <h1 className="text-4xl font-bold text-center"
 
-                        >Signup |</h1>
-                        <h1 className="text-3xl font-bold text-center text-slate-900 cursor-pointer pt-2"
-                            onClick={() => {
-                                button(!showLogin)
-                            }}
-                        >
-                            login
-                        </h1>
-                    </span>
-                    <form className="flex flex-col mt-10">
-                        <input type="text" placeholder="Username"
-                            onChange={(e) => { setForm({ ...form, username: e.target.value }) }}
-                            className="border-2 border-slate-900 rounded-lg p-2 mb-5" />
-                        <input type="password" placeholder="Password" className="border-2 border-slate-900 rounded-lg p-2 mb-5"
-                            onChange={(e) => { setForm({ ...form, password: e.target.value }) }}
-                        />
-                        <input type="text" placeholder="Name" className="border-2 border-slate-900 rounded-lg p-2 mb-5"
-                            onChange={(e) => { setForm({ ...form, name: e.target.value }) }}
-                        />
-                        <button className="bg-slate-900 text-white rounded-lg p-2"
-                            onClick={handleSignup}
+                            >Signup |</h1>
+                            <h1 className="text-3xl font-bold text-center text-slate-900 cursor-pointer pt-2"
+                                onClick={() => {
+                                    button(!showLogin)
+                                }}
+                            >
+                                Login
+                            </h1>
+                        </span>
+                        <form className="flex flex-col mt-10">
+                            <input type="text" placeholder="Username"
+                                onChange={(e) => { setForm({ ...form, username: e.target.value }) }}
+                                className="border-2 border-slate-900 rounded-lg p-2 mb-5" />
+                            <input type="password" placeholder="Password" className="border-2 border-slate-900 rounded-lg p-2 mb-5"
+                                onChange={(e) => { setForm({ ...form, password: e.target.value }) }}
+                            />
+                            <input type="text" placeholder="Name" className="border-2 border-slate-900 rounded-lg p-2 mb-5"
+                                onChange={(e) => { setForm({ ...form, name: e.target.value }) }}
+                            />
+                            <button className="bg-slate-900 text-white rounded-lg p-2"
+                                onClick={handleSignup}
 
-                        >signup</button>
-                    </form>
+                            >signup</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
             }
         </>
     );

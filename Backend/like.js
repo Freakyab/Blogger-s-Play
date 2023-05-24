@@ -7,7 +7,6 @@ const client = new MongoClient('mongodb+srv://DynamicA:D0j3iO5c23I9Lmbo@cluster0
 router.put('/', async (req, res) => {
     try {
         const { postId, userId } = req.body;
-        console.log(postId, userId);
         await client.connect();
         const db = client.db('internship');
         const collection = db.collection('blog');

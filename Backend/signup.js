@@ -7,7 +7,6 @@ const client = new MongoClient('mongodb+srv://DynamicA:D0j3iO5c23I9Lmbo@cluster0
 router.post('/', async (req, res) => {
     try {
         const { username, password, name } = req.body;
-        console.log(username, password, name)
         if (username === "" || password === "" || name === "") {
             res.json({ success: false });
         }

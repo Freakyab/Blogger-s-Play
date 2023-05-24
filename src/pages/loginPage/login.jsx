@@ -6,7 +6,6 @@ const login = ({ button, showLogin }) => {
     const [dashboard, setDashboard] = useState(false)
     const handleLogin = (e) => {
         e.preventDefault();
-        console.log(e.target);
         fetch("http://localhost:5000/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

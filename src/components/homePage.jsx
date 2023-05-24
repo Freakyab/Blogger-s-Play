@@ -44,7 +44,6 @@ const Home = ({ data }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data.Blog);
         setBlog(data.Blog);
         const likes = data.Blog.map((blog) => {
             if (blog.likes.includes(id)) {
@@ -52,7 +51,6 @@ const Home = ({ data }) => {
             }
             return false;
         });
-        console.log(likes);
         setLike(likes);
       })
       .catch((err) => {
@@ -89,8 +87,7 @@ const Home = ({ data }) => {
               <div className="p-5 m-5 mb-20 relative z-1 flex justify-center items-center flex-col">
                 <h1 className="text-3xl font-bold text-white m-5">Blog Title</h1>
                 <p className="text-white text-2xl mt-24 mb-24 p-5 rounded-lg">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-                  voluptatum.
+                "Blogging is not just about publishing, it's about sharing your voice with the world." - Unknown
                 </p>
                 <div className="grid grid-cols-3 gap-12 px-5 py-10">
                   {blog &&

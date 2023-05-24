@@ -19,7 +19,6 @@ const Myblogs = ({ name }) => {
             body: JSON.stringify(blogData)
         })
         const data = await res.json()
-        console.log(data)
         setDisplay(false)
         setUpdate(!update)
     }
@@ -50,7 +49,6 @@ const Myblogs = ({ name }) => {
             })
             const data = await res.json()
             if (data.success) {
-                console.log(data.Blog)
                 setBlogs(data.Blog)
             }
         }
@@ -142,6 +140,10 @@ const Myblogs = ({ name }) => {
                             </div>
                         </>
                     ))}
+                    {blogs.length === 0 && (
+                        <h1 className="text-2xl font-bold text-black m-5"
+                        >No Blogs</h1>
+                    )}
                 </div>
             </div>
         </>

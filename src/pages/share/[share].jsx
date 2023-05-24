@@ -7,7 +7,6 @@ const Share = () => {
     const [item, setItem] = useState([]);
 
     useEffect(() => {
-        console.log(share);
         if (share === undefined) return;
 
         const fetchData = async () => {
@@ -20,7 +19,6 @@ const Share = () => {
                 });
 
                 const data = await res.json();
-                console.log(data);
                 setItem(data.data);
             } catch (error) {
                 console.log(error);
