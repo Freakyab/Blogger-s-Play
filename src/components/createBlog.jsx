@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 
-const createBlog = ({ createBlog, setCreateBlog,id,name,update,setUpdate }) => {
-  const [form, setForm] = useState({ title: "", blog: "", imgUrl: "",by : id ,date : "",like : 0,name: name })
-  const handleChange = async(e) => {
+const createBlog = ({ createBlog, setCreateBlog, id, name, update, setUpdate }) => {
+  const [form, setForm] = useState({ title: "", blog: "", imgUrl: "", by: id, date: new Date(), likes: [], name: name })
+  const handleChange = async (e) => {
     e.preventDefault();
-    let date = new Date()
-    setForm({...form,date : date});
     const res = await fetch('http://localhost:5000/createBlog', {
       method: 'POST',
       headers: {
@@ -14,11 +12,11 @@ const createBlog = ({ createBlog, setCreateBlog,id,name,update,setUpdate }) => {
       body: JSON.stringify(form)
     })
     const data = await res.json()
-    if(data.success){
+    if (data.success) {
       setUpdate(!update)
     }
-      setCreateBlog(!createBlog)
-    setForm({ title: "", blog: "", imgUrl: "",by : id ,date : "",like : [],name: name })
+    setCreateBlog(!createBlog)
+    setForm({ title: "", blog: "", imgUrl: "", by: id, date: new Date(), likes: [], name: name })
   }
 
 
