@@ -42,7 +42,7 @@ const Myblogs = ({ id }) => {
 
     useEffect(() => {
         const getBlogs = async () => {
-            const res = await fetch(`http://localhost:5000/myBlogs?id=${id}`, {
+            const res = await fetch(`https://blogger-play.vercel.app/myBlogs?id=${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
