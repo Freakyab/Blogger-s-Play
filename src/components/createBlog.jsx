@@ -4,7 +4,7 @@ const createBlog = ({ createBlog, setCreateBlog, id, name, update, setUpdate }) 
   const [form, setForm] = useState({ title: "", blog: "", imgUrl: "", by: id, date: new Date(), likes: [], name: name })
   const handleChange = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/createBlog', {
+    const res = await fetch('https://blogger-play.vercel.app/createBlog', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

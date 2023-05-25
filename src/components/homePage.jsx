@@ -14,7 +14,7 @@ const Home = ({ data }) => {
   const [like, setLike] = useState([]);
 
   const handleLike = (postId) => {
-    fetch(`http://localhost:5000/like?`, {
+    fetch(`https://blogger-play.vercel.app/like?`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const Home = ({ data }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/homePage", {
+    fetch("https://blogger-play.vercel.app/homePage", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

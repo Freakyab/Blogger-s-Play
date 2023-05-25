@@ -11,7 +11,7 @@ const Share = () => {
 
         const fetchData = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/share?id=${share}`, {
+                const res = await fetch(`https://blogger-play.vercel.app/share?id=${share}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

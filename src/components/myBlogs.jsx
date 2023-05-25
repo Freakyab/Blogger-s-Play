@@ -11,7 +11,7 @@ const Myblogs = ({ name }) => {
     }
 
     const handleSumbit = async () => {
-        const res = await fetch(`http://localhost:5000/updateBlog?`, {
+        const res = await fetch(`https://blogger-play.vercel.app/updateBlog?`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ const Myblogs = ({ name }) => {
     }
 
     const handleDelete = async (id) => {
-        const res = await fetch(`http://localhost:5000/deleteBlog?`, {
+        const res = await fetch(`https://blogger-play.vercel.app/deleteBlog?`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ const Myblogs = ({ name }) => {
 
     useEffect(() => {
         const getBlogs = async () => {
-            const res = await fetch(`http://localhost:5000/myBlogs?name=${name}`, {
+            const res = await fetch(`https://blogger-play.vercel.app/myBlogs?name=${name}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
