@@ -152,7 +152,7 @@ const Home = ({ data }) => {
             myBlogs={myBlogs}
             setMyBlogs={setMyBlogs}
           />
-          <MyBlogs name={data.name} setMyBlog={setMyBlogs} />
+          <MyBlogs setMyBlog={setMyBlogs} id={id} />
         </>
       )}
     </>

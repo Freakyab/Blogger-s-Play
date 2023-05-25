@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from "next/router";
 
-const Myblogs = ({ name }) => {
+const Myblogs = ({ id }) => {
     const [blogData, setBlogData] = useState({ title: '', blog: '', imgUrl: '', _id: '' })
     const [blogs, setBlogs] = useState([])
     const [display, setDisplay] = useState(false)
@@ -42,7 +42,7 @@ const Myblogs = ({ name }) => {
 
     useEffect(() => {
         const getBlogs = async () => {
-            const res = await fetch(`https://blogger-play.vercel.app/myBlogs?name=${name}`, {
+            const res = await fetch(`http://localhost:5000/myBlogs?id=${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
