@@ -34,7 +34,6 @@ const Myblogs = ({ id }) => {
         })
         const data = await res.json()
         if (data.success) {
-
             setUpdate(!update)
         }
     }
