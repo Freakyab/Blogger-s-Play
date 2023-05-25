@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Router from "next/router";
 
 const Myblogs = ({ name }) => {
     const [blogData, setBlogData] = useState({ title: '', blog: '', imgUrl: '', _id: '' })
@@ -131,6 +132,11 @@ const Myblogs = ({ name }) => {
                                     >
                                         Edit
                                     </button>
+                                    <button className="bg-slate-900 text-white rounded-lg p-2"
+                                        onClick={() => {
+                                            Router.push(`/share/${item._id}`);
+                                          }}
+                                    >Share</button>
                                     <button className="bg-slate-900 text-white rounded-lg p-2"
                                         onClick={() => handleDelete(item._id)}
                                     >
