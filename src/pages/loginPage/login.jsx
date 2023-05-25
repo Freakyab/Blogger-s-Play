@@ -6,7 +6,7 @@ const login = ({ button, showLogin }) => {
     const [dashboard, setDashboard] = useState(false)
     const handleLogin = (e) => {
         e.preventDefault();
-        fetch("http://localhost:5000/login", {
+        fetch("https://blogger-play.vercel.app/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
