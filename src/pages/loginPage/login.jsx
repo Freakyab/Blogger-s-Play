@@ -28,50 +28,54 @@ const login = ({ button, showLogin }) => {
     }
 
     return (
-        <>{loading ? <Loader /> : null}
-            {dashboard ? <HomePage data={userData} /> :
-                <div className="flex justify-center items-center h-screen bg-slate-900">
-                    <div className="bg-white p-10 rounded-lg shadow-2xl">
-                        <span className='inline-flex'>
-                            <h1 className="text-4xl font-bold text-center"
+        <>{loading ? <Loader /> :
+            <>
 
-                            >Login |</h1>
-                            <h1 className="text-3xl font-bold text-center text-slate-900 cursor-pointer pt-2"
-                                onClick={() => {
-                                    button(!showLogin)
-                                }}
-                            >
-                                Signup
-                            </h1>
-                        </span>
+                {dashboard ? <HomePage data={userData} /> :
+                    <div className="flex justify-center items-center h-screen bg-slate-900">
+                        <div className="bg-white p-10 rounded-lg shadow-2xl">
+                            <span className='inline-flex'>
+                                <h1 className="text-4xl font-bold text-center"
 
-                        <form className="flex flex-col mt-10">
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                className="border-2 border-slate-900 rounded-lg p-2 mb-5"
-                                name="username"
-                                onChange={(e) => {
-                                    setForm({ ...form, username: e.target.value });
-                                }}
-                            />
+                                >Login |</h1>
+                                <h1 className="text-3xl font-bold text-center text-slate-900 cursor-pointer pt-2"
+                                    onClick={() => {
+                                        button(!showLogin)
+                                    }}
+                                >
+                                    Signup
+                                </h1>
+                            </span>
 
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                className="border-2 border-slate-900 rounded-lg p-2 mb-5"
-                                name="password"
-                                onChange={(e) => {
-                                    setForm({ ...form, password: e.target.value });
-                                }}
-                            />
+                            <form className="flex flex-col mt-10">
+                                <input
+                                    type="text"
+                                    placeholder="Username"
+                                    className="border-2 border-slate-900 rounded-lg p-2 mb-5"
+                                    name="username"
+                                    onChange={(e) => {
+                                        setForm({ ...form, username: e.target.value });
+                                    }}
+                                />
 
-                            <button className="bg-slate-900 text-white rounded-lg p-2"
-                                onClick={handleLogin}
-                            >Login</button>
-                        </form>
-                    </div>
-                </div>}
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    className="border-2 border-slate-900 rounded-lg p-2 mb-5"
+                                    name="password"
+                                    onChange={(e) => {
+                                        setForm({ ...form, password: e.target.value });
+                                    }}
+                                />
+
+                                <button className="bg-slate-900 text-white rounded-lg p-2"
+                                    onClick={handleLogin}
+                                >Login</button>
+                            </form>
+                        </div>
+                    </div>}
+            </>
+        }
         </>
     );
 }

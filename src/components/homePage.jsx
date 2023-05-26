@@ -73,7 +73,7 @@ const Home = ({ data }) => {
             myBlogs={myBlogs}
             setMyBlogs={setMyBlogs}
           />
-          <div className="flex justify-center items-center mt-[110px] sm:m-20 lg:mt-32">
+          <div className="flex justify-center items-center mt-[100px] sm:m-20 lg:mt-32">
             <div className="w-full max-w-7xl bg-slate-200 rounded-lg shadow-2xl relative scale-105">
               <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat filter brightness-50 lg:rounded-3xl shadow-2xl"
@@ -95,7 +95,7 @@ const Home = ({ data }) => {
                     blog.map((item, index) => (
                       <div
                         key={item}
-                        className="bg-white rounded-lg p-4 h-full overflow-hidden shadow-xl hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+                        className="bg-white rounded-lg p-4 h-full overflow-hidden shadow-xl hover:shadow-2xl transition duration-500 ease-in-out transform lg:hover:-translate-y-1 lg:hover:scale-110"
                       >
                         <h1 className="text-xl font-bold text-slate-900 mb-4 overflow-hidden text-ellipsis lg:whitespace-nowrap" >
                           {item.title}
