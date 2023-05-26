@@ -46,10 +46,10 @@ const Home = ({ data }) => {
       .then((data) => {
         setBlog(data.Blog);
         const likes = data.Blog.map((blog) => {
-            if (blog.likes.includes(id)) {
-                return true;
-            }
-            return false;
+          if (blog.likes.includes(id)) {
+            return true;
+          }
+          return false;
         });
         setLike(likes);
       })
@@ -73,38 +73,39 @@ const Home = ({ data }) => {
             myBlogs={myBlogs}
             setMyBlogs={setMyBlogs}
           />
-          <div className="flex justify-center items-center m-32 h-full flex-col">
-            <div
-              className="rounded-t-lg h-[50vh] w-[80vw] absolute top-16 z-0 mt-10"
-              style={{
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80')",
-                backgroundSize: "cover",
-                filter: "brightness(50%)",
-              }}
-            />
-            <div className="rounded-lg h-full w-[80vw] bg-slate-200 shadow-2xl">
-              <div className="p-5 m-5 mb-20 relative z-1 flex justify-center items-center flex-col">
-                <h1 className="text-3xl font-bold text-white m-5">Blog Title</h1>
-                <p className="text-white text-2xl mt-24 mb-24 p-5 rounded-lg">
-                "Blogging is not just about publishing, it's about sharing your voice with the world." - Unknown
+          <div className="flex justify-center items-center mt-[110px] sm:m-20 lg:mt-32">
+            <div className="w-full max-w-7xl bg-slate-200 rounded-lg shadow-2xl relative scale-105">
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat filter brightness-50 lg:rounded-3xl shadow-2xl"
+                style={{
+                  backgroundImage:
+                    "url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80')",
+                }}
+              />
+              <div className="p-6 relative z-10">
+                <h1 className="text-3xl font-bold text-white mb-6">
+                  Blog Title
+                </h1>
+                <p className="text-white text-xl mb-16">
+                  "Blogging is not just about publishing, it's about sharing
+                  your voice with the world." - Unknown
                 </p>
-                <div className="grid grid-cols-3 gap-12 px-5 py-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   {blog &&
                     blog.map((item, index) => (
                       <div
                         key={item}
-                        className="bg-white rounded-lg p-3 h-[500px] w-3/2 overflow-hidden shadow-xl hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+                        className="bg-white rounded-lg p-4 h-full overflow-hidden shadow-xl hover:shadow-2xl transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                       >
-                        <h1 className="text-2xl font-bold text-slate-900 mb-5  whitespace-nowrap overflow-hidden text-ellipsis">
+                        <h1 className="text-xl font-bold text-slate-900 mb-4 overflow-hidden text-ellipsis lg:whitespace-nowrap" >
                           {item.title}
                         </h1>
-                        <p className="text-slate-900 text-lg overflow-hidden text-ellipsis h-[360px] mb-5">
+                        <p className="text-slate-900 text-lg overflow-hidden h-28 mb-4">
                           {item.blog}
                         </p>
-                        <div className="flex justify-between">
+                        <div className="flex items-center justify-between">
                           <button
-                            className="bg-slate-900 text-white rounded-lg p-2"
+                            className="bg-slate-900 text-white rounded-lg px-4 py-2"
                             onClick={() => {
                               Router.push(`/share/${item._id}`);
                             }}
@@ -112,15 +113,14 @@ const Home = ({ data }) => {
                             More info
                           </button>
                           <div className="flex">
-                            {console.log(like)}
                             {like && like[index] ? (
                               <AiOutlineDislike
-                                className="text-2xl text-slate-900 ml-5 mt-2"
+                                className="text-2xl text-slate-900 ml-4 mt-2"
                                 onClick={() => handleLike(item._id)}
                               />
                             ) : (
                               <AiOutlineLike
-                                className="text-2xl text-slate-900 ml-5 mt-2"
+                                className="text-2xl text-slate-900 ml-4 mt-2"
                                 onClick={() => handleLike(item._id)}
                               />
                             )}
@@ -153,6 +153,14 @@ const Home = ({ data }) => {
             setMyBlogs={setMyBlogs}
           />
           <MyBlogs setMyBlog={setMyBlogs} id={id} />
+          <CreateBlog
+            createBlog={createBlog}
+            setCreateBlog={setCreateBlog}
+            id={id}
+            name={data.name}
+            update={update}
+            setUpdate={setUpdate}
+          />
         </>
       )}
     </>

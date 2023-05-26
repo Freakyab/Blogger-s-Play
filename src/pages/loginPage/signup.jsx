@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import HomePage from "@/components/homePage"
+import Loader from "@/components/loader"
 const signup = ({ button, showLogin }) => {
     const [form, setForm] = useState({ username: "", password: "", name: "" })
     const [userData, setUserData] = useState({ id: "", name: "" })
     const [dashboard, setDashboard] = useState(false)
+    const [loading, setLoading] = useState(false)
     const handleSignup = (e) => {
+        setLoading(true)
         e.preventDefault();
         fetch("https://blogger-play.vercel.app/signup", {
             method: "POST",
@@ -21,10 +24,12 @@ const signup = ({ button, showLogin }) => {
                     setUserData({ id: data.id, name: data.name })
                     setDashboard(true)
                 }
+                setLoading(false)
             })
     }
     return (
         <>
+        {loading ? <Loader /> : null}
             {dashboard ? <HomePage data={userData} /> :
                 <div className="flex justify-center items-center h-screen bg-slate-900">
                     <div className="bg-white p-10 rounded-lg shadow-2xl">

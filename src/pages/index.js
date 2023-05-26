@@ -5,7 +5,7 @@ export default function () {
   return (
     <>
       <Head>
-        <title>Blogger Page</title>
+        <title>Blogger's Page</title>
       </Head>
       <main>
         <LoginPage />
