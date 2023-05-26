@@ -7,7 +7,7 @@ const Navbar = ({ id, name, setId, setCreateBlog, CreateBlog, setMyBlogs, myBlog
   return (
     <>
       <div className="flex fixed justify-between top-0 items-center bg-slate-900 p-5 w-full z-50">
-        <h1 className="text-3xl font-bold text-white">Blog Title</h1>
+        <h1 className="text-3xl font-bold text-white">Blogger's Play</h1>
         <div className="flex justify-between items-center">
           <h1 className="text-white text-xl font-bold mr-5">{name}</h1>
           <button

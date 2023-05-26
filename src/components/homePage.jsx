@@ -84,7 +84,7 @@ const Home = ({ data }) => {
               />
               <div className="p-6 relative z-10">
                 <h1 className="text-3xl font-bold text-white mb-6">
-                  Blog Title
+                  Blog
                 </h1>
                 <p className="text-white text-xl mb-16">
                   "Blogging is not just about publishing, it's about sharing
