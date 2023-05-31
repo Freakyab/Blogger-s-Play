@@ -44,9 +44,11 @@ const Share = () => {
                 alt="blogImage"
                 className="w-full object-cover rounded-lg h-96 mb-5 shadow-xl"
               />
-              <p className="text-slate-900 text-lg mb-5 font-semibold">
-                {item.blog}
-              </p>
+              {item.blog?.split('\n').map((paragraph, i) => (
+                      <p key={i} className="text-slate-900 text-lg mb-5 font-semibold">
+                        {paragraph}
+                      </p>
+                    ))}
               <p className="text-slate-900 text-lg mb-5 font-medium">
                 Like count: {item.likes ? item.likes.length : 0}
               </p>
