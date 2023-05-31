@@ -24,7 +24,7 @@ const createBlog = ({ createBlog, setCreateBlog, id, name, update, setUpdate }) 
     <div>
       {createBlog && (
         <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white flex flex-col rounded-lg p-6">
+          <div className="bg-white flex flex-col rounded-lg p-6 lg:w-[70vw]">
             <h2 className="text-2xl font-bold mb-4">Blog details</h2>
 
             <input type="text"

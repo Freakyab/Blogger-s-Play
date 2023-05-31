@@ -30,7 +30,6 @@ const login = ({ button, showLogin }) => {
     return (
         <>{loading ? <Loader /> :
             <>
-
                 {dashboard ? <HomePage data={userData} /> :
                     <div className="flex justify-center items-center h-screen bg-slate-900">
                         <div className="bg-white p-10 rounded-lg shadow-2xl">
