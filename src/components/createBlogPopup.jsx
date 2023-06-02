@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
-const createBlog = ({ createBlog, setCreateBlog, id, name, update, setUpdate }) => {
+// Toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
+
+const createBlog = ({blogDisplay, setBlogDisplay}) => {
+  const { data: session } = useSession();
+  const { user } = session;
+  const { id, name } = user;
   const [form, setForm] = useState({ title: "", blog: "", imgUrl: "", by: id, date: new Date(), likes: [], name: name })
   const handleChange = async (e) => {
     e.preventDefault();
@@ -11,11 +19,27 @@ const createBlog = ({ createBlog, setCreateBlog, id, name, update, setUpdate }) 
       },
       body: JSON.stringify(form)
     })
-    const data = await res.json()
+    const data = await res.json();
     if (data.success) {
-      setUpdate(!update)
+      toast.success('Blog created successfully', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+      });
     }
-    setCreateBlog(!createBlog)
+    else {
+      toast.error('Something went wrong', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+      });
+    }
+
+    setBlogDisplay(!blogDisplay)
     setForm({ title: "", blog: "", imgUrl: "", by: id, date: new Date(), likes: [], name: name })
   }
 
@@ -23,7 +47,7 @@ const createBlog = ({ createBlog, setCreateBlog, id, name, update, setUpdate }) 
   return (
     <div>
       {createBlog && (
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50">
+        <div className="z-9 fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50">
           <div className="bg-white flex flex-col rounded-lg p-6 lg:w-[70vw]">
             <h2 className="text-2xl font-bold mb-4">Blog details</h2>
 
@@ -52,13 +76,14 @@ const createBlog = ({ createBlog, setCreateBlog, id, name, update, setUpdate }) 
             </button>
             <button
               className="bg-red-500 text-white px-4 py-2 rounded mt-4"
-              onClick={() => setCreateBlog(!createBlog)}
+              onClick={() => setBlogDisplay(!blogDisplay)}
             >
               Close Popup
             </button>
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

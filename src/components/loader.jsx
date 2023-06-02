@@ -3,8 +3,13 @@ import styles from '@/styles/loader.module.css'; // Import the CSS module
 
 const Loader = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className={`w-16 h-16 border-4 border-gray-300 rounded-full ${styles['animate-loader']}`}></div>
+    <div className='flex flex-col bg-gray-700 w-screen h-screen justify-center items-center'>
+
+      <div class={styles.clock_loader}></div>
+      <h1 className='mt-10 text-4xl font-bold text-center text-white'
+      >
+        Loading...
+      </h1>
     </div>
   );
 };

@@ -11,12 +11,14 @@ router.put('/', async (req, res) => {
         const db = client.db('internship');
         const collection = db.collection('blog');
         const blog = await collection.findOne({ _id: new ObjectId(postId) });
+        let likeCheck = "Liked";
 
         if (blog) {
             const likeIndex = blog.likes.indexOf(userId);
             if (likeIndex !== -1) {
                 // If userId is already in the like array, remove it
                 blog.likes.splice(likeIndex, 1);
+                likeCheck = "Disliked";
             } else {
                 // If userId is not in the like array, add it
                 blog.likes.push(userId);
@@ -28,7 +30,7 @@ router.put('/', async (req, res) => {
             );
 
             if (updatedBlog) {
-                res.json({ success: true });
+                res.json({ success: true , likeCheck: likeCheck});
             } else {
                 res.json({ success: false });
             }
