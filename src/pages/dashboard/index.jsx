@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
   const { data: session, status } = useSession();
+  console.log(session);
   const router = useRouter();
 
   useEffect(() => {
