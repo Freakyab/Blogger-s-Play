@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+// components
+import Navbar from "@/components/navbar";
+
 const Share = () => {
   const router = useRouter();
   const { share } = router.query;
@@ -31,7 +34,9 @@ const Share = () => {
   return (
     <>
       {item && (
-        <div className="flex justify-center items-center m-10 h-full flex-col bg-slate-200 shadow-xl rounded-3xl">
+        <>
+        <Navbar/>
+        <div className="flex justify-center items-centermt-20 mt-24 m-10 h-full flex-col bg-slate-200 shadow-xl rounded-3xl">
           <h1 className="text-3xl font-bold text-black m-5">Blog details</h1>
           <div className="grid grid-cols-1 gap-12 px-5 py-10">
             <div key={item} className="bg-white rounded-lg p-3 w-full">
@@ -58,6 +63,7 @@ const Share = () => {
             </div>
           </div>
         </div>
+        </>
       )}
     </>
   );

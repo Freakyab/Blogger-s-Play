@@ -1,15 +1,41 @@
+// React
 import React, { useEffect, useState } from "react";
-import CreateBlog from "@/components/createBlog";
-import MyBlogs from "@/components/myBlogs";
-import Router from "next/router";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-import Navbar from "./navbar";
 
-const Home = ({ data }) => {
+// auth and Router
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import Router from "next/router";
+
+// react-icons
+import { AiOutlineLike } from "react-icons/ai";
+
+// components
+import Navbar from "@/components/navbar";
+
+// Toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+const Dashboard = () => {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === 'loading') {
+      return;
+    }
+
+    if (!session || session === undefined) {
+      router.replace('/');
+    }
+  }, [status, session, router]);
+
+  const { user } = session || {};
+  const { id } = user || {};
+
   const [blog, setBlog] = useState([]);
-  const [id, setId] = useState(data.id);
   const [createBlog, setCreateBlog] = useState(false);
-  const [myBlogs, setMyBlogs] = useState(false);
   const [update, setUpdate] = useState(false);
   const [like, setLike] = useState([]);
 
@@ -28,6 +54,31 @@ const Home = ({ data }) => {
       .then((data) => {
         if (data.success) {
           setUpdate(!update);
+          if (data.likeCheck === 'Liked')
+            toast.success(data.likeCheck, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              draggable: true,
+            });
+          else
+            toast.error(data.likeCheck, {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              draggable: true,
+            });
+        }
+        else{
+          toast.error("Something went wrong", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+          });
         }
       })
       .catch((err) => {
@@ -60,19 +111,11 @@ const Home = ({ data }) => {
 
   return (
     <>
-      {id === "" ? (
-        (window.location.href = "/loginPage")
-      ) : !myBlogs ? (
+      {status === 'loading' ? (
+        <div>Loading...</div>
+      ) : !session || session === undefined ? null : (
         <>
-          <Navbar
-            name={data.name}
-            id={id}
-            setId={setId}
-            createBlog={createBlog}
-            setCreateBlog={setCreateBlog}
-            myBlogs={myBlogs}
-            setMyBlogs={setMyBlogs}
-          />
+          <Navbar createBlog={createBlog} setCreateBlog={setCreateBlog} />
           <div className="flex justify-center items-center mt-[100px] sm:m-20 lg:mt-32">
             <div className="w-full max-w-7xl bg-slate-200 rounded-lg shadow-2xl relative scale-105">
               <div
@@ -94,10 +137,10 @@ const Home = ({ data }) => {
                   {blog &&
                     blog.map((item, index) => (
                       <div
-                        key={item}
+                        key={index}
                         className="bg-white rounded-lg p-4 h-full overflow-hidden shadow-xl hover:shadow-2xl transition duration-500 ease-in-out transform lg:hover:-translate-y-1 lg:hover:scale-110"
                       >
-                        <h1 className="text-xl font-bold text-slate-900 mb-4 overflow-hidden text-ellipsis lg:whitespace-nowrap" >
+                        <h1 className="text-xl font-bold text-slate-900 mb-4 overflow-hidden text-ellipsis lg:whitespace-nowrap">
                           {item.title}
                         </h1>
                         <p className="text-slate-900 text-lg overflow-hidden h-28 mb-4">
@@ -113,17 +156,10 @@ const Home = ({ data }) => {
                             More info
                           </button>
                           <div className="flex">
-                            {like && like[index] ? (
-                              <AiOutlineDislike
-                                className="text-2xl text-slate-900 ml-4 mt-2"
-                                onClick={() => handleLike(item._id)}
-                              />
-                            ) : (
-                              <AiOutlineLike
-                                className="text-2xl text-slate-900 ml-4 mt-2"
-                                onClick={() => handleLike(item._id)}
-                              />
-                            )}
+                            <AiOutlineLike
+                              className={`text-2xl ml-4 mt-2 ${like && like[index] ? 'text-blue-500' : ''}`}
+                              onClick={() => handleLike(item._id)}
+                            />
                           </div>
                         </div>
                       </div>
@@ -132,39 +168,11 @@ const Home = ({ data }) => {
               </div>
             </div>
           </div>
-          <CreateBlog
-            createBlog={createBlog}
-            setCreateBlog={setCreateBlog}
-            id={id}
-            name={data.name}
-            update={update}
-            setUpdate={setUpdate}
-          />
-        </>
-      ) : (
-        <>
-          <Navbar
-            name={data.name}
-            id={id}
-            setId={setId}
-            createBlog={createBlog}
-            setCreateBlog={setCreateBlog}
-            myBlogs={myBlogs}
-            setMyBlogs={setMyBlogs}
-          />
-          <MyBlogs setMyBlog={setMyBlogs} id={id} />
-          <CreateBlog
-            createBlog={createBlog}
-            setCreateBlog={setCreateBlog}
-            id={id}
-            name={data.name}
-            update={update}
-            setUpdate={setUpdate}
-          />
         </>
       )}
+      <ToastContainer />
     </>
   );
 };
 
-export default Home;
+export default Dashboard;
