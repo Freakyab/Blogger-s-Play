@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 // components
 import Loader from '@/components/loader';
 import { FaGoogle } from 'react-icons/fa';
-
+import {AiFillGithub} from 'react-icons/ai';
 // toastify
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,13 +24,31 @@ const Login = ({ button, showLogin }) => {
   const handleLoginGoogle = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await signIn('google', {
+    const res = await signIn('google', {
       callbackUrl: `${window.location.origin}/dashboard`,
     });
+    if (res?.error) {
+      router.push('/');
+    } else if (res?.url) {
+      router.push('/dashboard');
+    }
+    
     setLoading(false);
   };
-  
 
+  const handleLoginGithub = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const res = await signIn('github', {
+      callbackUrl: `${window.location.origin}/dashboard`,
+    });
+    if (res?.error) {
+      router.push('/');
+    } else if (res?.url) {
+      router.push('/dashboard');
+    }
+    setLoading(false);
+  };
 
 
   const handleLogin = async (e) => {
@@ -109,7 +127,11 @@ const Login = ({ button, showLogin }) => {
               </button>
               <button onClick={handleLoginGoogle} className="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition duration-150 ease-in-out">
                 <FaGoogle className="google-icon mr-2" />
-                Sign In with Social Media
+                Sign In with Google
+              </button>
+              <button onClick={handleLoginGithub} className="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-700 transition duration-150 ease-in-out">
+                <AiFillGithub className="github-icon mr-2" />
+                Sign In with Github
               </button>
             </form>
           </div>
