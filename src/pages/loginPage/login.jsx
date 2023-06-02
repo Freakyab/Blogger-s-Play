@@ -21,6 +21,18 @@ const Login = ({ button, showLogin }) => {
   // next auth and router
   const router = useRouter();
 
+  const handleLoginGoogle = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    await signIn('google', {
+      callbackUrl: `${window.location.origin}/dashboard`,
+    });
+    setLoading(false);
+  };
+  
+
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -95,7 +107,7 @@ const Login = ({ button, showLogin }) => {
               >
                 Login
               </button>
-              <button onClick={() => signIn()} className="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition duration-150 ease-in-out">
+              <button onClick={handleLoginGoogle} className="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition duration-150 ease-in-out">
                 <FaGoogle className="google-icon mr-2" />
                 Sign In with Social Media
               </button>
