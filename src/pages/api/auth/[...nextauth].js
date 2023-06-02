@@ -59,7 +59,7 @@ export default NextAuth({
     jwt: true,
     maxAge: 60 * 60,
   },
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
     signIn: async (account) => {
       if (account.account.provider === 'google') {
