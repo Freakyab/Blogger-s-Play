@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
         await client.connect();
         const db = client.db('internship');
         const collection = db.collection('blog');
-        const Blog = await collection.find({by : req.query.id}).toArray();
+        const Blog = (await collection.find({by : req.query.id}).toArray()).reverse();
         if(Blog){
             res.json({ success: true, Blog });
         }

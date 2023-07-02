@@ -9,7 +9,9 @@ router.get('/', async (req, res) => {
         await client.connect();
         const db = client.db('internship');
         const collection = db.collection('blog');
-        const Blog = await collection.find().toArray();
+        const Blog = await collection.aggregate([
+            { $sample: { size: 4 } }, // Randomly select 4 documents
+        ]).toArray();
         if(Blog){
             res.json({ success: true, Blog });
         }

@@ -6,18 +6,19 @@ const client = new MongoClient('mongodb+srv://DynamicA:D0j3iO5c23I9Lmbo@cluster0
 
 router.post('/', async (req, res) => {
     try {
-        const {title,blog,imgUrl,by,date,likes,dislike,name,tags} = req.body;
+        const { tags } = req.body;
+        console.log(tags);
         await client.connect();
         const db = client.db('internship');
         const collection = db.collection('blog');
-        const Blog = await collection.insertOne({title,blog,imgUrl,by,date,likes,dislike,name,tags});
-        if(Blog.insertedId){   
-            res.json({ success: true });
+        const Blog = await collection.find({tags : tags}).toArray();
+        console.log(Blog);
+        if(Blog.length !== 0){
+            res.json({ success: true, Blog });
         }
         else{
             res.json({ success: false });
         }
-
     } catch (e) {
         console.log(e);
         res.json({ success: false });

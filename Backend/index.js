@@ -11,6 +11,7 @@ const deleteBlog = require('./deleteblog')
 const share = require('./share');
 const like = require('./like');
 const signup = require('./signup');
+const getCat = require("./getCategory")
 
 const port = 5000;
 
@@ -26,4 +27,5 @@ app.use("/deleteBlog", deleteBlog);
 app.use("/like", like);
 app.use("/share", share);
 app.use("/signup", signup);
+app.use("/getCategory",getCat);
 app.listen(port , () => console.log(`listening on port ${port}`));
