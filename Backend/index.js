@@ -5,14 +5,16 @@ const app = express();
 const login = require('./login');
 const homePage = require('./homePage');
 const createBlog = require('./createBlog');
-const myBlogs = require('./myBlogs');
-const updateBlog = require('./updateBlog');
-const deleteBlog = require('./deleteblog')
+const myBlogs = require('./myBlogs/myBlogs');
+const updateBlog = require('./myBlogs/updateBlog');
+const deleteBlog = require('./myBlogs/deleteblog')
 const share = require('./share');
 const like = require('./like');
 const signup = require('./signup');
-const getCat = require("./getCategory")
-
+const getCat = require("./getCategory");
+// Testing 
+// const blog = require('./model/blog.model');
+const saveBlog = require('./Editor/save');
 const port = 5000;
 
 
@@ -28,4 +30,6 @@ app.use("/like", like);
 app.use("/share", share);
 app.use("/signup", signup);
 app.use("/getCategory",getCat);
+// Testing 
+app.use("/saveBlog", saveBlog);
 app.listen(port , () => console.log(`listening on port ${port}`));
