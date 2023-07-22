@@ -1,0 +1,13 @@
+/* Home.module.css */
+
+.fancyBackground {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    background-image: radial-gradient(circle, #ccc 0, #ccc 25%, transparent 25%),
+      radial-gradient(circle, #ccc 0, #ccc 25%, transparent 25%);
+    background-position: 0 0, 15px 15px;
+    background-size: 30px 30px;
+    background-color: #eee;
+  }
+  

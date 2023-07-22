@@ -10,7 +10,7 @@ import Router from "next/router";
 import { AiOutlineLike } from "react-icons/ai";
 
 // components
-import Navbar from "@/components/navbar";
+import Navbar from "../../components/navbar";
 
 // Toastify
 import { ToastContainer, toast } from "react-toastify";
