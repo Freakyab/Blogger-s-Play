@@ -12,6 +12,13 @@ const createBlog = ({ page, controls }) => {
     if (status === "loading") {
       return;
     }
+    if (page === "myBlogs-Category") {
+      setSelectedCategory(
+        categories.filter(
+          (category) => category.title === controls.categoriesName
+        )[0].id
+      );
+    }
   }, [status, session]);
 
   const { user } = session || {};
@@ -25,33 +32,55 @@ const createBlog = ({ page, controls }) => {
   };
 
   const handleSumbit = async () => {
-    if (selectedCategory === -1) {
-      toast.error("Please select a category");
-      return;
-    }
-    await fetch("http://localhost:5000/saveBlog", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data: controls.data,
-        author: name,
-        authorId: id,
-        category: categories[selectedCategory].title,
-        likes: 0,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.success) {
-          controls.setData(null);
-          controls.setDeleteData(true);
-          controls.setPopupDisplay(false);
-          controls.router.push("/myBlogs");
-        }
+    if (page === "myBlogs-Category") {
+      await fetch("http://localhost:5000/editCategory", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: controls.blogId,
+          category: categories[selectedCategory].title,
+        }),
       })
-      .catch((err) => console.log(err));
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.success) {
+            controls.setPopupDisplay(false);
+            controls.router.replace("/");
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      if (selectedCategory === -1) {
+        toast.error("Please select a category");
+        return;
+      }
+      await fetch("http://localhost:5000/saveBlog", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: controls.data,
+          author: name,
+          authorId: id,
+          category: categories[selectedCategory].title,
+          likes: 0,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.success) {
+            controls.setData(null);
+            controls.setDeleteData(true);
+            controls.setPopupDisplay(false);
+            controls.router.push("/myBlogs");
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const handleUpdateSumbit = async () => {
@@ -78,20 +107,21 @@ const createBlog = ({ page, controls }) => {
       .then((res) => {
         if (res.success) {
           controls.setPopupDisplay(false);
+          controls.setBlogId(null);
         }
       })
       .catch((err) => console.log(err));
   };
 
   const handleDeleteSumbit = async () => {
-    const { blogId, setBlogId} = controls;
+    const { deleteId, setDeleteId } = controls;
     await fetch("http://localhost:5000/deleteBlog", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: blogId,
+        id: deleteId,
       }),
     })
       .then((res) => res.json())
@@ -99,7 +129,7 @@ const createBlog = ({ page, controls }) => {
         if (res.success) {
           controls.setPopupDisplay(false);
           controls.setIsDelete(true);
-          setBlogId(null);
+          setDeleteId(null);
         }
       })
       .catch((err) => console.log(err));
@@ -109,7 +139,7 @@ const createBlog = ({ page, controls }) => {
     <div>
       <div className="z-10 fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50">
         <div className="bg-slate-200 rounded-lg p-6 max-w-md">
-          {page == "Editor" ? (
+          {page == "Editor" || page == "myBlogs-Category" ? (
             <>
               <h2 className="text-2xl font-semibold mb-5 uppercase">
                 Select one ,
@@ -121,7 +151,7 @@ const createBlog = ({ page, controls }) => {
                     className={`p-3 rounded-md shadow-md transition-opacity ${
                       selectedCategory === -1 || selectedCategory === index
                         ? "scale-105 "
-                        : "opacity-40 hover:opacity-60"
+                        : "opacity-10 hover:opacity-60"
                     }`}
                     style={{
                       backgroundImage: `url(${category.backgroundImage})`,
@@ -137,6 +167,13 @@ const createBlog = ({ page, controls }) => {
               </div>
             </>
           ) : null}
+          <div className={`text-xl font-semibold mb-5 uppercase text-center`}>
+            {page === "myBlogs-update"
+              ? "Are you sure you want to update this blog?"
+              : page === "myBlogs-delete"
+              ? "Are you sure you want to delete this blog?"
+              : null}
+          </div>
           <div className={`grid grid-cols-2 gap-2 mb-5 text-white text-lg`}>
             <button
               className="bg-gray-700 p-3 rounded-md shadow-md transition-opacity hover:bg-gray-600"
@@ -147,6 +184,7 @@ const createBlog = ({ page, controls }) => {
                   ? handleDeleteSumbit
                   : handleSumbit
               }>
+              {console.log(page)}
               Confirm
             </button>
             <button

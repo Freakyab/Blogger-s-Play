@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Popup from "../../components/Popup";
 import { PencilIcon, TrashIcon } from "@heroicons/react/solid";
+import categories from "@/components/categories";
 
 const EditorBlock = dynamic(
   () => import("../../components/Editor/EditorToggle"),
@@ -28,9 +29,10 @@ const MyBlogs = () => {
   const [page, setPage] = useState("myBlogs-update");
   const [newIndex, setNewIndex] = useState(-1);
   const [blogId, setBlogId] = useState(null);
-  const [toggle, setToggle] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [toggle, setToggle] = useState(true);
   const [isDelete, setIsDelete] = useState(false);
-
+  const [categoriesName, setCategoriesName] = useState("");
   useEffect(() => {
     const getBlogs = async () => {
       setLoading(true);
@@ -77,6 +79,10 @@ const MyBlogs = () => {
                 setNewIndex,
                 setIsDelete,
                 setToggle,
+                deleteId,
+                setDeleteId,
+                categoriesName,
+                router : router
               }}
             />
           ) : null}
@@ -96,7 +102,7 @@ const MyBlogs = () => {
                 className="flex items-center gap-2 rounded bg-green-500 text-white font-bold py-2 px-4 hover:bg-green-700 mb-4 sm:mb-0">
                 <PencilIcon className="h-5 w-5" /> Create
               </button>
-             
+
               <div className="flex flex-wrap gap-10">
                 {Array.isArray(blogs) &&
                   blogs.map((blog, index) => (
@@ -122,27 +128,54 @@ const MyBlogs = () => {
                         }}
                         holder={`holder-${blog._id}`}
                       />
+
                       {!toggle ? (
-                        <div className="flex justify-center items-center gap-2">
+                        <>
+                          <div className="flex justify-between items-center gap-2 p-4">
                           <button
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex"
+                            className="p-3 rounded-md shadow-md transition-opacity hover:opacity-50"
+                            style={{
+                              backgroundImage: `url(${
+                                categories.filter(
+                                  (category) => category.title === blog.category
+                                )[0].backgroundImage
+                              })`,
+                              background:
+                                categories.filter(
+                                  (category) => category.title === blog.category
+                                )[0].background ||
+                                categories.filter(
+                                  (category) => category.title === blog.category
+                                )[0].backgroundImage,
+                            }}
                             onClick={() => {
+                              setPage("myBlogs-Category");
                               setPopupDisplay(true);
-                              setPage("myBlogs-delete");
                               setBlogId(blog._id);
+                              setCategoriesName(blog.category);
                             }}>
-                            <TrashIcon className="h-5 w-5" /> Delete
+                            {blog.category}
                           </button>
-                          <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex"
-                            onClick={() => {
-                              setPopupDisplay(true);
-                              setPage("myBlogs-update");
-                              setBlogId(blog._id);
-                            }}>
-                            <PencilIcon className="h-5 w-5" /> Update
-                          </button>
-                        </div>
+                            <button
+                              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex"
+                              onClick={() => {
+                                setPopupDisplay(true);
+                                setPage("myBlogs-update");
+                                setBlogId(blog._id);
+                              }}>
+                              <PencilIcon className="h-5 w-5" /> Update
+                            </button>
+                            <button
+                              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex"
+                              onClick={() => {
+                                setPage("myBlogs-delete");
+                                setPopupDisplay(true);
+                                setDeleteId(blog._id);
+                              }}>
+                              <TrashIcon className="h-5 w-5" /> Delete
+                            </button>
+                          </div>
+                        </>
                       ) : null}
                     </div>
                   ))}

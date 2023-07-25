@@ -12,6 +12,7 @@ const share = require('./share');
 const like = require('./like');
 const signup = require('./signup');
 const getCat = require("./getCategory");
+const editCat = require("./myBlogs/editCat");
 // Testing 
 // const blog = require('./model/blog.model');
 const saveBlog = require('./Editor/save');
@@ -30,6 +31,7 @@ app.use("/like", like);
 app.use("/share", share);
 app.use("/signup", signup);
 app.use("/getCategory",getCat);
+app.use("/editCategory",editCat);
 // Testing 
 app.use("/saveBlog", saveBlog);
 app.listen(port , () => console.log(`listening on port ${port}`));

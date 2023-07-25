@@ -62,7 +62,7 @@ const Home = () => {
             </h1>
           </div>
           <div
-            className={`px-6 h-auto ${
+            className={`px-10 h-auto ${
               popupDisplay !== true ? null : "hidden"
             }`}>
             <EditorBlock
