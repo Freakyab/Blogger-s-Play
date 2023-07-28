@@ -3,7 +3,9 @@ import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader";
-import { ToastContainer, toast } from "react-toastify";
+import Navbar from "@/components/navbar";
+
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Popup from "../../components/Popup";
 import { PencilIcon, TrashIcon } from "@heroicons/react/solid";
@@ -65,6 +67,7 @@ const MyBlogs = () => {
         <Loader />
       ) : (
         <>
+            <Navbar />
           {PopupDisplay ? (
             <Popup
               page={page}
