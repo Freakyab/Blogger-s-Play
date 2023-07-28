@@ -1,5 +1,5 @@
 import Head from "next/head";
-import LoginPage from "@/pages/loginPage";
+import Dashboard from "./dashboard";
 import Navbar from "@/components/navbar";
 
 
@@ -14,7 +14,7 @@ export default function Home() {
         <Navbar />
       </nav>
       <main>
-        <LoginPage />
+        <Dashboard />
       </main>
     </>
   );
