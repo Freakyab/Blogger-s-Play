@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import styles from "../../styles/home.module.css"; // Import CSS module for local styles
+import styles from "../../styles/Home.module.css"; // Import CSS module for local styles
 
 // auth and Router
 import { useSession } from "next-auth/react";
